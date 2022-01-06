@@ -21,7 +21,7 @@ apply plugin: 'kotlin' // or 'kotlin-multiplatform' for multiplatform projects
 apply plugin: 'kotlinx-serialization'
 
 group 'com.github.sbaldin.keenetic'
-version '0.1'
+version '0.2'
 
 mainClassName = "com.github.sbaldin.tbot.keenetic.Application"
 defaultTasks 'run'
