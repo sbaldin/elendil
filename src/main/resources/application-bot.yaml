@@ -1,0 +1,9 @@
+bot:
+  name: ElendilBot
+  locale: RU
+  token: here
+  authorizedChatId: here
+
+credentials:
+  login: here
+  password: here

@@ -59,6 +59,10 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
+application {
+    applicationDefaultJvmArgs = ['-Xmx32m']
+}
+
 // setup the test task
 test {
     useJUnitPlatform {
@@ -68,4 +72,12 @@ test {
 
 test {
     useJUnitPlatform()
+}
+
+shadowJar{
+    manifest {
+        attributes["Main-Class"] = "com.github.sbaldin.tbot.Application"
+    }
+    archiveFileName.set("shadow_app.jar")
+    zip64 = true
 }
