@@ -1,1 +1,6 @@
 .git
+logs
+.idea
+build
+
+Dockerfile

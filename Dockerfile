@@ -5,18 +5,10 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+VOLUME /logs
 
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN ./gradlew build --no-daemon
-CMD ["java",
-#"-DppConfig=/application-bot.yaml",
-"-Xmx128m",
-#"-Djava.awt.headless=true",
-#"-Dorg.bytedeco.javacpp.maxbytes=1100m",
-#"-Dorg.bytedeco.javacpp.maxphysicalbytes=1800m" ,
- "-Djava.net.preferIPv4Stack=true",
- "-Des.set.netty.runtime.available.processors=false",
- "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005",
- "-jar", "/app.jar"]
+CMD ["java", "-Xmx64m", "-Djava.net.preferIPv4Stack=true", "-Des.set.netty.runtime.available.processors=false", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005", "-jar", "./build/libs/shadow_app.jar"]
