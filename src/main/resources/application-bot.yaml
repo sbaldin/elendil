@@ -7,3 +7,6 @@ bot:
 credentials:
   login: here
   password: here
+
+health_checker:
+  services: [ "http://service:8080" ]

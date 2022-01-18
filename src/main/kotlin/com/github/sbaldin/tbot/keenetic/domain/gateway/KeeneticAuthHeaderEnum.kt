@@ -1,4 +1,4 @@
-package com.github.sbaldin.tbot.keenetic.domain
+package com.github.sbaldin.tbot.keenetic.domain.gateway
 
 enum class KeeneticAuthHeaderEnum(val title: String) {
     XNDMChallenge("X-NDM-Challenge"),

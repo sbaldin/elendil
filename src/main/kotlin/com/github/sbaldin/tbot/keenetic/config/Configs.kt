@@ -1,7 +1,6 @@
 package com.github.sbaldin.tbot.keenetic.config
 
-import com.github.sbaldin.tbot.keenetic.domain.UserCredentials
-import java.util.Locale
+import java.util.*
 
 data class BotConf(
     val name: String,
@@ -15,4 +14,8 @@ data class BotConf(
 data class UserCredentialConf(
     val login: String,
     val password: String
+)
+
+data class HealthCheckConf(
+    val services: List<String>,
 )

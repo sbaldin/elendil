@@ -1,7 +1,10 @@
 package com.github.sbaldin.tbot.keenetic
 
-import com.github.sbaldin.tbot.keenetic.domain.KeeneticAuthHeaderEnum
+import com.github.sbaldin.tbot.keenetic.domain.gateway.KeeneticAuthHeaderEnum
 import io.ktor.http.*
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import java.security.MessageDigest
 import java.util.*
 
@@ -33,4 +36,8 @@ fun String.encodeMd5(): String {
 fun String.encodeSha256(): String {
 // Java provides inbuilt MessageDigest class for SHA-256 hashing
     return printHexBinary(MessageDigest.getInstance("SHA-256").digest(toByteArray()))
+}
+
+suspend fun <A, R> Iterable<A>.mapParallel(f: suspend (A) -> R): Iterable<R> = coroutineScope {
+    map { async { f(it) } }.awaitAll()
 }

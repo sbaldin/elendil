@@ -1,10 +1,12 @@
 package com.github.sbaldin.tbot.keenetic
 
 import com.github.sbaldin.tbot.keenetic.config.BotConf
+import com.github.sbaldin.tbot.keenetic.config.HealthCheckConf
 import com.github.sbaldin.tbot.keenetic.config.UserCredentialConf
 import com.github.sbaldin.tbot.keenetic.domain.CredentialsProvider
-import com.github.sbaldin.tbot.keenetic.domain.GatewayResolver
 import com.github.sbaldin.tbot.keenetic.domain.UserCredentials
+import com.github.sbaldin.tbot.keenetic.domain.gateway.GatewayResolver
+import com.github.sbaldin.tbot.keenetic.domain.health.HealthChecker
 import com.github.sbaldin.tbot.keenetic.presentation.GatewayLocatorBot
 import com.github.sbaldin.tbot.keenetic.presentation.LocateGatewayChainPresenter
 import com.uchuhimo.konf.Config
@@ -27,9 +29,18 @@ fun readCredentialsConf(
     .from.yaml.resource(resourcePath).from.yaml.file(botConfPath, optional = true).at("credentials")
     .toValue<UserCredentialConf>()
 
+fun healthCheckConf(
+    resourcePath: String = "application-bot.yaml",
+    botConfPath: String = "",
+) = Config()
+    .from.yaml.resource(resourcePath).from.yaml.file(botConfPath, optional = true).at("health_checker")
+    .toValue<HealthCheckConf>()
+
+
 class Application {
     private val appConfPath: String = System.getProperty("appConfig") ?: "./application-bot.yaml"
     private val appConf: BotConf = readBotConf(botConfPath = appConfPath)
+    private val healthCheckConf: HealthCheckConf = healthCheckConf(botConfPath = appConfPath)
 
     fun run() {
         log.info("Application config path:$appConfPath")
@@ -39,6 +50,7 @@ class Application {
             LocateGatewayChainPresenter(
                 appConf.authorizedChatId,
                 GatewayResolver(),
+                HealthChecker(healthCheckConf.services),
                 object : CredentialsProvider {
                     override fun get(): UserCredentials {
                         val userConf: UserCredentialConf = readCredentialsConf(botConfPath = appConfPath)

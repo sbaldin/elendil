@@ -1,6 +1,9 @@
-package com.github.sbaldin.tbot.keenetic.domain
+package com.github.sbaldin.tbot.keenetic.domain.gateway
 
 import com.github.sbaldin.tbot.keenetic.asMap
+import com.github.sbaldin.tbot.keenetic.domain.KeeneticAuthHeaderValues
+import com.github.sbaldin.tbot.keenetic.domain.KeeneticInterfaceInfo
+import com.github.sbaldin.tbot.keenetic.domain.UserCredentials
 import com.github.sbaldin.tbot.keenetic.encodeMd5
 import com.github.sbaldin.tbot.keenetic.encodeSha256
 import io.ktor.client.*
@@ -30,7 +33,7 @@ class GatewayResolver {
             //log all requests
             install(Logging) {
                 logger = Logger.DEFAULT
-                level = LogLevel.ALL
+                level = LogLevel.NONE
             }
             install(HttpCookies) {
                 // Will keep an in-memory map with all the cookies from previous requests.

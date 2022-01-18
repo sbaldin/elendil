@@ -1,5 +1,6 @@
 package com.github.sbaldin.tbot.keenetic.domain
 
+import com.github.sbaldin.tbot.keenetic.domain.gateway.KeeneticAuthHeaderEnum
 import kotlinx.serialization.Serializable
 
 data class KeeneticAuthHeaderValues(
