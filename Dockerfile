@@ -1,4 +1,7 @@
 FROM arm64v8/openjdk:11
+
+ARG app_config_path=""
+
 RUN apt-get update && \
     apt-get install -yq --no-install-recommends wget pwgen ca-certificates && \
     apt-get clean && \
